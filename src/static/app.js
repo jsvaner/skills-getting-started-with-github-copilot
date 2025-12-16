@@ -23,9 +23,40 @@ document.addEventListener("DOMContentLoaded", () => {
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
+          <p><strong>Schedule11:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+
+          <div class="participants-section">
+            <h5>Participants</h5>
+            <ul class="participants-list"></ul>
+          </div>
         `;
+
+        // Build participants list
+        const participantsList = activityCard.querySelector(".participants-list");
+        if (!details.participants || details.participants.length === 0) {
+          const li = document.createElement("li");
+          li.className = "no-participants";
+          li.textContent = "No participants yet.";
+          participantsList.appendChild(li);
+        } else {
+          details.participants.forEach((p) => {
+            const li = document.createElement("li");
+            li.className = "participant-item";
+
+            const initial = document.createElement("span");
+            initial.className = "participant-initial";
+            initial.textContent = String(p).trim().charAt(0).toUpperCase();
+
+            const emailSpan = document.createElement("span");
+            emailSpan.className = "participant-email";
+            emailSpan.textContent = p;
+
+            li.appendChild(initial);
+            li.appendChild(emailSpan);
+            participantsList.appendChild(li);
+          });
+        }
 
         activitiesList.appendChild(activityCard);
 
